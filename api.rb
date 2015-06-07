@@ -13,27 +13,47 @@ end
 #Routes need doc param
 
 get '/' do
-	'GET'
+	if params[:doc]
+		'hi'
+	else
+		'GET'
+	end
 end	
 
 get '/routes' do
-	routes = []
-	Sinatra::Application.each_route do |route|
-		routes << { :method => route.verb,
-			:path => route.path }
+	if params[:doc]
+
+	else
+		routes = []
+		Sinatra::Application.each_route do |route|
+			routes << { :method => route.verb,
+				:path => route.path }
+		end
+		return routes.to_json
 	end
-	return routes.to_json
 
 end
 
 post '/mess' do
-	@message = params['message']
+	if params[:doc]
+
+	else
+		@message = params['message']
+	end
 end
 
-put '/put' do 
-	'PUT'
+put '/put' do
+       if params[:doc]
+
+       else	       
+		'PUT'
+       end
 end
 
-delete '/delete' do 
-	'DELETE'
+delete '/delete' do
+       if params[:doc]
+
+       else		       
+		'DELETE'
+       end
 end
